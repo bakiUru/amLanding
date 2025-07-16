@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState} from 'react'
 import './Navbar.css'
 import amLogo from '../../assets/AM.png'
 import menu_icon from '../../assets/lista-menu.png'
@@ -11,18 +11,22 @@ const NavBar = () => {
     const [mobileMenu, setmobileMenu] = useState(false);
 
     useEffect(()=>{
-        window.addEventListener('scroll',()=>{
-            window.scrollY > 50 ? setSticky(true) : setSticky(false);
-        })
+      const handleScroll = () => setSticky(window.scrollY > 50);
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
     },[])
 
     const toogleMenu = () => {
         mobileMenu? setmobileMenu(false) : setmobileMenu(true);
     }
   return (
-    <nav className={`container ${sticky? 'dark-nav':''}`}>
+    <nav className={`container ${sticky? 'dark-nav':''}`} >
         <img src={amLogo} alt="AM Logo" className='logo' />
-        <ul className={mobileMenu?'':'hide-mobile-menu'}>
+        <ul className={mobileMenu?'':'hide-mobile-menu'}
+
+        >
+
+
             <li className='text'>
             <Link
             to='hero'
@@ -75,7 +79,19 @@ const NavBar = () => {
             duration={500}
             className='btn'>Contactanos</Link></li>
         </ul>
-        <img src={mobileMenu?menu_icon2:menu_icon} alt="menu icono" className='menu-icon' onClick={toogleMenu}/>
+        <img 
+          src={mobileMenu?menu_icon2:menu_icon} 
+          alt="menu icono" 
+          className='menu-icon' 
+          onClick={toogleMenu}
+        />
+        {mobileMenu && (
+          <div
+            className="overlay"
+            onClick={() => setmobileMenu(false)}
+          />
+        )}
+        
     </nav>
   )
 }

@@ -46,7 +46,16 @@ nav ul li {
 .menu-icon{
     display: none;
 }
-
+/* Mascara para detectar click fuera del menu lateral en modo mobile */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2); /* Ajusta la transparencia según sea necesario */
+    z-index: 999;
+}
 /*media query*/
 @media (max-width: 1000px){
     nav ul li {
@@ -73,7 +82,7 @@ nav ul li {
         right: 0px;
         bottom: 0;
         background: var(--primary-nav-color);
-        z-index: -1;
+        z-index: 1000;
         width: 200px;
         padding-top: 70px;
         transition: 0.5s;
